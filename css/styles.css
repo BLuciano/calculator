@@ -12,24 +12,36 @@ h3{
 	display: inline-block;
 	width: 225px;
 	margin: 70px 15px 20px 15px;
-	padding: 10px;
+	padding: 0px 10px;
+	font-size: 2.5em;
 	background-color: #ddd;
 	border-radius: 5px;
+	text-align: right;
 }
 
 button{
 	width: 48px;
 	height: 40px;
-	padding: 15px 20px;
-	border-radius: 50%/7px 7px 7px 7px;
 	margin: 5px;
+	border-radius: 50%/7px 7px 7px 7px;
+	box-shadow: 5px 5px 2px #222;
+	font-weight: 600;
+	font-size: 1.25em;
 	background-color: #ddd;
 	color: #000;
-	box-shadow: 5px 5px 2px #222;
 	border: none;
 }
+
 button:focus {
 	outline:0;
+}
+
+button:hover{
+	cursor: pointer;
+}
+
+button:active{
+	box-shadow: 1px 1px 1px #222;
 }
 
 .plus{
@@ -47,3 +59,11 @@ button:focus {
 	width: 25%;
 }
 
+.ops button{
+	background-color: #e68a00;
+}
+
+button.clear{
+	background-color: #b32400;
+	color: #fff;
+}
