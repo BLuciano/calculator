@@ -1,7 +1,8 @@
 (function(){
 	var display = document.getElementById("display");
+	var decimal = document.getElementById("decimal");
 	var temp="", result = 0, operand, num2;
-	var onFirst = true, error = false;
+	var onFirst = true, error = false, percentage = false;
 
 	//Grab all button references and get it's value when clicked.
 	var buttons = document.getElementsByTagName("button");
@@ -18,7 +19,8 @@
 		if(input === "AC"){
 			onFirst = true; 
 			error = false;
-			document.getElementById("decimal").disabled = false;
+			percentage = false;
+			decimal.disabled = false;
 			display.innerHTML = 0;
 			temp= "";
 			operand = "";
@@ -32,24 +34,29 @@
 
 		if(input === "CE"){
 			temp = "";
+			decimal.disabled = false;
+			percentage= false;
 			display.innerHTML = "0";
 		}
 
 		if(input >= 0 && input < 10){
+			if(temp.toString().length > 10) return;
 			temp+= input;
 			display.innerHTML = temp;
 		}
 
 		if(input === '.'){
+			if(temp.toString().length > 10) return;
 			temp+= input;
 			display.innerHTML = temp;
-			document.getElementById("decimal").disabled = true;
+			decimal.disabled = true;
 		}
 
-		if(input === '+' || input === '-' || input === '/' || input === 'X' || input === "="){
+		if(input === '+' || input === '-' || input === '/' || 
+			input === 'X' || input === "=" || input === "%"){
+			
 			if(temp === ""){
 				operand = input;
-				//return;
 			} 
 			else if(onFirst){
 				result = temp;
@@ -57,6 +64,9 @@
 				temp = "";
 				onFirst = false;
 			} else {
+				if(input === "%"){
+					percentage = true;
+				}
 				result = doMath(result, temp, operand);
 				temp = "";
 				operand = input;
@@ -66,10 +76,14 @@
 				display.innerHTML = "Error!";
 				return;
 			}
-			
+			result  = parseFloat(result);
+			if(result.toString().length > 11) 
+			{
+				result = result.toPrecision(4);
+			}
 			display.innerHTML = result;	
-			document.getElementById("decimal").disabled = false;
-
+			decimal.disabled = false;
+			percentage = false;
 		}
 	} // End of readInput()
 
@@ -77,6 +91,11 @@
 	function doMath(num1, num2, operation){
 		num1 = parseFloat(num1);
 		num2 = parseFloat(num2);
+
+		if(percentage){
+			num2 = parseFloat(num1 * (num2 / 100));
+		}
+
 		switch(operation){
 			case '+':
 				return num1 + num2;
