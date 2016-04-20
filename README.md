@@ -1,7 +1,7 @@
 Calculator
 ==========
 
-http://codepen.io/BLuciano/pen/bENLpW
+http://codepen.io/BLuciano/full/bENLpW/
 
 A calculator simulator for the freeCodeCamp challenge
 
